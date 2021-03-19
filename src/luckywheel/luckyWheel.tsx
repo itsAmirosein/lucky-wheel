@@ -1,16 +1,15 @@
 import { useCallback, useEffect } from "react";
 import { Degrees } from "../constants/constants";
 import { LuckyWheelProps } from "../models/luckyModel";
-import { Wheel } from "../style";
+import { LuckyWheelWrapper, Wheel } from "../style";
 import { useSpin } from "./spin/useSpin";
-
+import {Indicator} from '../style'
 const LuckyWheel = ({ segments = [], radius = 250 }: LuckyWheelProps) => {
-  const { repeat, winnerIndex } = useSpin(segments?.length);
+  const { repeat, winnerIndex,remainDegrees ,portion} = useSpin(segments?.length);
   const diameter: number = Number(radius) * 2;
 
   useEffect(() => {
-    const winner = segments?.find((segment) => +segment.key === +winnerIndex);
-
+    const winner = segments?.find((segment) => +segment.key === + ((segments.length+1) - winnerIndex));
     console.log(winner?.color, winnerIndex);
   }, [winnerIndex, segments]);
 
@@ -59,15 +58,20 @@ const LuckyWheel = ({ segments = [], radius = 250 }: LuckyWheelProps) => {
     },
     [polarToCartesian, radius]
   );
-
+console.log(winnerIndex,repeat)
   return (
-    <Wheel {...{ repeat }} width={diameter} height={diameter}>
+    <LuckyWheelWrapper>
+        <Indicator />
+    <Wheel {...{repeat}} width={diameter} height={diameter}>
       <svg width={diameter} height={diameter}>
         {segments?.map(({ color, key }, index) => (
           <path key={key} d={arc(index, segments?.length)} fill={color} />
         ))}
       </svg>
     </Wheel>
+    </LuckyWheelWrapper>
+    
+    
   );
 };
 

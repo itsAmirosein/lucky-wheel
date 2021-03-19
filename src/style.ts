@@ -23,6 +23,7 @@ const spin = (repeat: number = 1) => keyframes`
 `;
 
 export const Wheel = styled.div<WheelProps>`
+
   width: ${({ width }) =>
     String(width).includes("px") ? width : `${width}px`};
   height: ${({ height }) =>
@@ -31,4 +32,22 @@ export const Wheel = styled.div<WheelProps>`
   svg {
     position: absolute;
   }
+`;
+
+export const Indicator = styled.div`
+  ::after{
+    content:'';
+    position:absolute;
+    left:50%;
+  display: inline-block;
+  border-width: 7px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  }
+`;
+export const LuckyWheelWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
 `;

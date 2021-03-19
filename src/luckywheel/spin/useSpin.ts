@@ -10,7 +10,7 @@ export const useSpin = (count: number) => {
   const remainDegrees: number =
     ((deg / Degrees.PERFECT_CIRCLE) % 1) * Degrees.PERFECT_CIRCLE;
   const portion: number = Degrees.PERFECT_CIRCLE / count;
-  const winnerIndex: number = Math.ceil(remainDegrees / portion);
+  const winnerIndex: number = Math.ceil((deg / portion))%count;
 
-  return { repeat, remainDegrees, winnerIndex, deg };
+  return { repeat, remainDegrees, winnerIndex, deg,portion };
 };
